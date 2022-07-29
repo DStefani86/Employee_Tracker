@@ -1,5 +1,3 @@
-USE employees
-
 insert into departments (name)
 
 
