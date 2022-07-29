@@ -45,17 +45,29 @@ const questions = [
     message: "What is employees Last Name?",
     when: ({ selection }) => selection == "Add Employee",
     },
+    {
+        type: "list",
+        name: "newMan",
+        message: "Who is the manager?",
+        choices: [
+            "Joe Montana"
+        ],
+        when: ({ selection }) => selection == "Add Employee",
+    },
+    {
+        type: "list",
+        name: "newRole",
+        message: "What is the position?",
+        choices: [
+            "Sales Rep",
+            "Engineer",
+            "Manager",
+            "Consultant"
+        ],
+        when: ({ selection }) => selection == "Add Employee",
+    },
 ]
 
-
-
-
-
-
-// {
-//     type: 'input',
-//     name: 'department',
-//     message: 'Which department would you like to add?',
 //     when: ({selection}) => selection == 'Add employee',
 // },
 export default questions;

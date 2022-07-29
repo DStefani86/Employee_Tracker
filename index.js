@@ -4,13 +4,16 @@ import db from "./config/connection.js";
 const cTable = import("console.table");
 
 const init = () => {
-  inquirer.prompt(questions).then((ans) => {
-    if (ans.selection == "View Departments") showDepartments().then(init);
-    if (ans.selection == "View Roles") showRole().then(init);
-    if (ans.selection == "View Employees") showEmp().then(init);
-    if (ans.selection == "Add Department") addDepart(ans.department).then(init);
-    if (ans.selection == "Add Role") addRole(ans.title, ans.salary);
-    if (ans.selection == "Add Employee") addEmp(ans.firstName, ans.lastName, ans.newRole)
+  inquirer.prompt(questions).then((answer) => {
+    if (answer.start === 'View Departments') {
+      showDepartments();
+    } else if (answer.start === 'View Roles') {
+      showRole();
+    }
+    else if (answer.start === "View Employees") showEmp();
+    else if (answer.start === "Add Department") addDepart();
+    else if (answer.start === "Add Role") addRole();
+    else if (answer.start === "Add Employee") addEmp();
   });
 };
 
@@ -68,6 +71,7 @@ const addEmp = async (firstName, lastName) => {
     for (let i =0; i < role[0].length; i++){
         choices.push(role[0][i].title)
     }
+    
   inquirer
     .prompt([
       {

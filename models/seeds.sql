@@ -1,4 +1,8 @@
+USE employees
+
 insert into departments (name)
+
+
 values 
     ('sales'),
     ('engineering'),
