@@ -17,8 +17,8 @@ create table role (
 
 create table employees (
     id int primary key auto_increment,
-    first_name VARCHAR(30) unique not null,
-    last_name VARCHAR(30) unique not null,
+    firstName VARCHAR(30) unique not null,
+    lastName VARCHAR(30) unique not null,
     role_id int,
     manager_id int,
     foreign key(role_id) references role(id),

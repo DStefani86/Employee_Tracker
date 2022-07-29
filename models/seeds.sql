@@ -12,7 +12,7 @@ values
     ('consultant', 80000, 3),
     ('manager', 85000, 4);
 
-insert into employees (first_name, last_name, role_id, manager_id)
+insert into employees (firstName, lastName, role_id, manager_id)
 values 
     ('Joe', 'Montana', 4, null),
     ('Michael', 'Jordan', 2, 1),
