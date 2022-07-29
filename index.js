@@ -10,7 +10,7 @@ const init = () => {
     if (ans.selection == "View Employees") showEmp().then(init);
     if (ans.selection == "Add Department") addDepart(ans.department).then(init);
     if (ans.selection == "Add Role") addRole(ans.title, ans.salary);
-    if (ans.selection == "Add Employee") addEmp(ans.firstName, ans.lastName, ans.department_id).then(init); 
+    if (ans.selection == "Add Employee") addEmp(ans.firstName, ans.lastName, ans.newRole)
   });
 };
 
@@ -68,27 +68,23 @@ const addEmp = async (firstName, lastName) => {
     for (let i =0; i < role[0].length; i++){
         choices.push(role[0][i].title)
     }
-    // console.log(choices)
   inquirer
     .prompt([
       {
         type: "list",
-        name: "department_id",
+        name: "newRole",
         message: "What is the role?",
         choices: choices,
       },
     ])
     .then(async ({ department_id }) => {
-      // console.log(department_id)
       let depId = await db
         .promise()
-        .query(`SELECT * FROM role WHERE title = '${department_id}'`) 
-        .then(init);
- console.log(depId)
+        .query(`SELECT * FROM role WHERE title = '${department_id}'`)
     })
     await db
     .promise()
-    .query(`INSERT INTO employees (firstName, lastName, department_id) VALUES ("${firstName}", "${lastName}", ${depId})`)
+    .query(`INSERT INTO employees (firstName, lastName, department_id) VALUES ("${firstName}", "${lastName}", ${depId})`).then(init);
 };
 
 init();
