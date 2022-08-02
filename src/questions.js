@@ -13,7 +13,7 @@ const questions = [
       "Add Role",
       "Add Employee",
       "Update Employee Role",
-    ],
+    ]
   },
   {
     type: "input",
@@ -44,30 +44,7 @@ const questions = [
     name: "lastName",
     message: "What is employees Last Name?",
     when: ({ selection }) => selection == "Add Employee",
-    },
-    {
-        type: "list",
-        name: "newMan",
-        message: "Who is the manager?",
-        choices: [
-            "Joe Montana"
-        ],
-        when: ({ selection }) => selection == "Add Employee",
-    },
-    {
-        type: "list",
-        name: "newRole",
-        message: "What is the position?",
-        choices: [
-            "Sales Rep",
-            "Engineer",
-            "Manager",
-            "Consultant"
-        ],
-        when: ({ selection }) => selection == "Add Employee",
-    },
+    }
 ]
 
-//     when: ({selection}) => selection == 'Add employee',
-// },
 export default questions;

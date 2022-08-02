@@ -4,16 +4,14 @@ import db from "./config/connection.js";
 const cTable = import("console.table");
 
 const init = () => {
-  inquirer.prompt(questions).then((answer) => {
-    if (answer.start === 'View Departments') {
-      showDepartments();
-    } else if (answer.start === 'View Roles') {
-      showRole();
-    }
-    else if (answer.start === "View Employees") showEmp();
-    else if (answer.start === "Add Department") addDepart();
-    else if (answer.start === "Add Role") addRole();
-    else if (answer.start === "Add Employee") addEmp();
+  inquirer.prompt(questions).then((a) => {
+    if (a.selection === "View Departments") showDepartments().then(init);
+    if (a.selection === "View Roles") showRole().then(init);
+    if (a.selection === "View Employees") showEmp().then(init);
+    if (a.selection === "Add Department") addDepart(a.department);
+    if (a.selection === "Add Role") addRole(a.title, a.salary);
+    if (a.selection === "Add Employee") addEmp(a.firstName,a.lastName);
+    if (a.selection === "Update Employee Role")updateRole(a.id,a.role_id);
   });
 };
 
@@ -35,12 +33,11 @@ const showEmp = async () => {
 const addDepart = async (department) => {
   let data = await db
     .promise()
-    .query(`INSERT INTO departments (name) VALUES ("${department}")`);
-  console.table(data[0]);
+    .query(`INSERT INTO departments (name) VALUES ("${department}")`)
+    .then(init);
 };
 
 const addRole = async (title, salary) => {
-  console.log("data: ", title, salary);
   let departments = await db
     .promise()
     .query("SELECT name, id AS value FROM departments");
@@ -56,42 +53,84 @@ const addRole = async (title, salary) => {
     .then(async ({ department_id }) => {
       await db
         .promise()
-        .query(`INSERT INTO role (title,salary,department_id) VALUES ("${title}", ${salary},${department_id})`);
+        .query(
+          `INSERT INTO role (title,salary,department_id) VALUES ("${title}", ${salary},${department_id})`
+        );
     })
     .then(init);
 };
 
 const addEmp = async (firstName, lastName) => {
-  console.log("data: ", firstName, lastName);
-  let role = await db
+  let roles = await db
     .promise()
-    .query("SELECT title FROM role"); 
-    console.log(role[0])
-    var choices = []
-    for (let i =0; i < role[0].length; i++){
-        choices.push(role[0][i].title)
-    }
-    
+    .query("SELECT title AS name, id AS value FROM role");
+
+  let managers = await db
+    .promise()
+    .query(
+      "SELECT CONCAT(firstName,' ',lastName) as name, id AS value FROM employees"
+    );
+
   inquirer
     .prompt([
       {
         type: "list",
-        name: "newRole",
+        name: "role_id",
         message: "What is the role?",
-        choices: choices,
+        choices: roles[0],
+      },
+      {
+        type: "list",
+        name: "manager_id",
+        message: "Who is the manager?",
+        choices: managers[0],
       },
     ])
-    .then(async ({ department_id }) => {
-      let depId = await db
+    .then(async ({ role_id, manager_id }) => {
+      await db
         .promise()
-        .query(`SELECT * FROM role WHERE title = '${department_id}'`)
-    })
-    await db
+        .query(
+          `INSERT INTO employees (firstName,lastName,role_id,manager_id) VALUES ("${firstName}", "${lastName}", "${role_id}", "${manager_id}")`
+        )
+        .then(init);
+    });
+};
+
+const updateRole = async (firstName, lastName) => {
+  let roles = await db
+  .promise()
+  .query("SELECT title AS name, id AS value FROM role");
+
+  let employees = await db
     .promise()
-    .query(`INSERT INTO employees (firstName, lastName, department_id) VALUES ("${firstName}", "${lastName}", ${depId})`).then(init);
+    .query(
+      "SELECT CONCAT(firstName,' ',lastName) as name, id AS value FROM employees"
+    );
+
+  inquirer
+    .prompt([ 
+       {
+        type: "list",
+        name: "id",
+        message: "Which employee would you like to update?",
+        choices: employees[0],
+      },
+      {
+        type: "list",
+        name: "role_id",
+        message: "What is the role?",
+        choices: roles[0],
+      },
+    
+    ])
+    .then(async ({ role_id, manager_id }) => {
+      await db
+        .promise()
+        .query(
+          `UPDATE employees (firstName,lastName,id,role_id) VALUES ("${firstName}", "${lastName}", "${role_id}")`
+        )
+        .then(init);
+    });
 };
 
 init();
- 
-
-
