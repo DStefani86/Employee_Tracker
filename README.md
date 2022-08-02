@@ -19,36 +19,37 @@ This is application to generate a list of profiles for a small work team. All th
 
 
 ## Installation
-Visit my GitHub repository featured in the Questions section below. Find the Employee Tracker repository. Clone the SSH down from my the repository into your own terminal and enjoy! Node must be installed to use this application and you must be within the file path that contains 'index.js'. After you have gone through the installation process, run the 'node index.js' command in your terminal. A series of prompts will appear.
+Visit my GitHub repository featured in the Questions section below. Find the Employee Tracker repository. Clone the SSH down from my the repository into your own terminal and enjoy! Node must be installed to use this application and you must be within the file path that contains 'index.js'. After you have gone through the installation process, run the 'node index.js' command in your terminal. Make sure to run 'npm i' in your terminal before engaging this application. A series of prompts will appear.
 
 ## Usage
 
-I am including some examples of my code to demonstrate the functionality of my application. I first wanted to showcase the simplicity of my javascript index file. Only running one function to initialize the inquirer prompts. 
+I am including some examples of my code to demonstrate the functionality of my application. I wanted to showcase the simplicity of my javascript files. First are my connections.
 
-![CodeEx01](./assets/images/CodeEx01.png)
+![CodeEx01](./images/CodeEx01.png)
 
-Next is an example from my htmlGen page where I did all the html I wanted to be displayed based on the users inputs of the inquirer prompts. The questions/answers change based on the role the user is inputting for.
+These are the seeds I built into my db tables 
 
-![CodeEx02](./assets/images/CodeEx02.png)
+![CodeEx02](./images/CodeEx02.png)
 
-Made a class for each role that stemmed from the employee class that gets the same questions no matter what role is selected.
+An examples from my questions using Inquirer
 
-![CodeEx03](./assets/images/CodeEx03.png)
+![CodeEx03](./images/CodeEx03.png)
 
-I then made roles with more specific questions based on the employee role using the constructor/super commands.
+These are my IF statements to navigate through the prompts
 
-![CodeEx04](./assets/images/CodeEx04.png)
+![CodeEx04](./images/CodeEx04.png)
 
-I also included an example of one of my test functions. 
+A function I created to highlight using SELECT and INSERT into my tables from Inquirer 
 
-![CodeEx05](./assets/images/CodeEx05.png)
+![CodeEx05](./images/CodeEx05.png)
 
-Finally, it leaves us with a clean and easy to read list of employee broken down into roles on the team.html in the dist foler.
+Finally, this is my function to incorporate using UPDATE syntax into my inquirer prompts
 
-![CodeEx06](./assets/images/CodeEx06.png)
+![CodeEx06](./images/CodeEx06.png)
 
 If you have any other curiosities about the functionality of this application please watch the tutorial video I have included
 
+[Video Example](https://drive.google.com/file/d/1yLEEKDhiZWdxZTovqK9QxvnWTgc_EuWU/view)
 
 
 
