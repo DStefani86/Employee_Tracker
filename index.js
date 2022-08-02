@@ -123,11 +123,11 @@ const updateRole = async (firstName, lastName) => {
       },
     
     ])
-    .then(async ({ role_id, manager_id }) => {
+    .then(async ({ role_id, id }) => {
       await db
         .promise()
         .query(
-          `UPDATE employees (firstName,lastName,id,role_id) VALUES ("${firstName}", "${lastName}", "${role_id}")`
+          `UPDATE employees SET role_id = "${role_id}" WHERE id = "${id}"`
         )
         .then(init);
     });
